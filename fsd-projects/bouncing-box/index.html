@@ -1,90 +1,97 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Bouncing Box</title>
-    <script src="jquery.min.js"></script>
-    <style>
-      .box {
-        width: 70px;
-        height: 70px;
-        background-color: teal;
-        font-size: 300%;
-        text-align: center;
-        user-select: none;
-        display: block;
-        position: absolute;
-        top: 100px;
-        left: 0px;
-      }
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8" /> 
+<title>Bouncing Box</title> 
+<script src="jquery.min.js"></script> 
+<style> 
+.box { 
+ width: 70px; 
+ height: 70px; 
+ background-color: teal; 
+ font-size: 300%; 
+ text-align: center; 
+ user-select: none; 
+ display: block; 
+ position: absolute; 
+ top: 100px; 
+ left: 0px; 
+} 
+.board { 
+ height: 100vh; 
+} 
+</style> 
+</head> 
+<body class="board"> 
 
-      .board {
-        height: 100vh;
-      }
-    </style>
-  </head>
+<div class="box">?</div> 
 
-  <body class="board">
-    <div class="box">0</div>
+<script> 
+(function () { 
+"use strict"; 
 
-    <script>
-      (function () {
-        "use strict";
-        var box = jQuery(".box");
-        var board = jQuery(".board");
-        var boardWidth = board.width();
+/* global jQuery */ 
 
-        jQuery(window).on("resize", function () {
-          boardWidth = board.width();
-        });
+var box = jQuery(".box"); 
+var board = jQuery(".board"); 
+var boardWidth = board.width(); 
 
-        setInterval(update, 50);
-        box.on("click", handleBoxClick);
+jQuery(window).on("resize", function () { 
+ boardWidth = board.width(); 
+}); 
 
-        function moveBoxTo(newPositionX) {
-          box.css("left", newPositionX);
-        }
+setInterval(update, 50); 
+box.on("click", handleBoxClick); 
 
-        function changeBoxText(newText) {
-          box.text(newText);
-        }
+function moveBoxTo(newPositionX) { 
+ box.css("left", newPositionX); 
+} 
 
-        // VARIABLES
-        var positionX = 0;
-        var points = 0;
-        var speed = 10;
+function changeBoxText(newText) { 
+ box.text(newText); 
+} 
 
-        function update() {
-          // move box
-          positionX += speed;
+////////////////////////////////////////////////////////////////// 
+/////////////////// YOUR CODE BELOW HERE ///////////////////////// 
+////////////////////////////////////////////////////////////////// 
 
-          // right wall
-          if (positionX > boardWidth - 70) {
-            speed *= -1;
-          }
+// TODO 2 - Variable declarations
+var positionX = 0;
+var points = 0;
+var speed = 10;
 
-          // left wall
-          if (positionX < 0) {
-            speed *= -1;
-          }
+function update() { 
 
-          moveBoxTo(positionX);
-        }
+ moveBoxTo(positionX); // <-- for TODO 1 (original style kept)
 
-        function handleBoxClick() {
-          // increase score
-          points++;
+ positionX = positionX + speed; // TODO 2 / 5
 
-          // reset position
-          positionX = 0;
+ if (positionX > boardWidth) { // TODO 6
+  speed *= -1;
+ }
 
-          // update speed using formula
-          speed = 3 * points + 10;
+ if (positionX < 0) { // TODO 7
+  speed *= -1;
+ }
 
-          // update text
-          changeBoxText(points);
-        }
-      })();
-    </script>
-  </body>
+} 
+
+function handleBoxClick() { 
+
+ positionX = 0; // TODO 3
+
+ points++; // TODO 4
+
+ changeBoxText(points); // TODO 4 (updated from 0)
+
+ speed = speed + 3; // (for TODO 5 early version, then overridden by formula below)
+
+ speed = 3 * points + 10; // TODO 8 (final fix)
+
+} 
+
+})(); 
+</script> 
+
+</body> 
 </html>

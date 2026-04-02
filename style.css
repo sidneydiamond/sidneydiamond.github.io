@@ -148,4 +148,10 @@ h2, h3 {
     align-content: center;
     justify-content: center;
   }
+
+  .board {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
 }
